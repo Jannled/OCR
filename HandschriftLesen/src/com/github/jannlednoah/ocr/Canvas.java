@@ -1,3 +1,4 @@
+package com.github.jannlednoah.ocr;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 

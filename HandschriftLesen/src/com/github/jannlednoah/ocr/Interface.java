@@ -1,3 +1,4 @@
+package com.github.jannlednoah.ocr;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
