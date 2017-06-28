@@ -16,8 +16,8 @@ public class Interface extends JFrame {
 
 	private JPanel contentPane;
 	JButton feld[][] = new JButton[5][6];
-	int felder[] = new int[30];
-	int feldI[] = new int[30];
+	double felder[] = new double[30];
+	double feldI[] = new double[30];
 	boolean feldB[] = new boolean[30];
 	
 	
@@ -50,20 +50,71 @@ public class Interface extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Willkommen bei Janniks und Noahs KI");
+		lblNewLabel.setBackground(Color.YELLOW);
 		lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 25));
 		lblNewLabel.setBounds(100, 50, 500, 75);
 		contentPane.add(lblNewLabel);
 		
-		JButton b00 = new JButton("");
-		b00.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				
+				System.out.println("");
+				System.out.println("");
+				
+				for(int i=0; i<6; i++)
+				{
+					for(int j=0; j<5; j++)
+					{
+						System.out.print(" "+feldI[i*5+j]);
+					}
+					System.out.println("");
+				}
 			}
 		});
-		b00.setBounds(100, 150, 30, 30);
-		contentPane.add(b00);
+		btnNewButton.setBounds(97, 449, 89, 23);
+		contentPane.add(btnNewButton);
 		
 		
+		for(int i=0; i<6; i++)
+		{
+			for(int j=0; j<5; j++)
+			{
+				feld[j][i] = new JButton("");
+				feld[j][i].setBounds(100+j*30, 150+i*30, 30, 30);
+				contentPane.add(feld[j][i]);
+				evt(j,i);
+			}
+		}
 		
+		
+	}
+	
+	public void evt(int a, int b)
+	{
+		feld[a][b].addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				try
+				{
+					if(feldB[b+a*5]==false)
+					{
+						feldI[b+a*5]= 0.5;
+						feld[a][b].setBackground(Color.GREEN);
+						feldB[b+a*5]= true;
+					}
+					else
+					{
+						feldI[b+a*5]= -0.5;
+						feld[a][b].setBackground(Color.WHITE);
+						feldB[b+a*5]= false;
+					}
+					
+				}catch(Exception y)
+				{
+					System.out.println("Kevin");
+				}
+			}
+		});
 	}
 }
