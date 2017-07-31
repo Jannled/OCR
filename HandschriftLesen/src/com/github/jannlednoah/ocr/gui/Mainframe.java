@@ -8,14 +8,19 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
+import com.github.jannlednoah.ocr.ann.ANN;
+import com.github.jannlednoah.ocr.ann.Annone;
+
 /**
- * 
+ * The Main class and window manager. All window elements are found inside
  * @author Jannled
  * @author Noah
  */
 public class Mainframe
 {
-
+	private Annone annone = new Annone(64, 64, 26);
+	public static Mainframe mf;
+	
 	private JFrame frmOcrByJN;
 
 	/**
@@ -44,6 +49,7 @@ public class Mainframe
 	public Mainframe()
 	{
 		initialize();
+		mf = this;
 	}
 
 	/**
@@ -65,4 +71,8 @@ public class Mainframe
 		drawContainer.add(panel);
 	}
 
+	public ANN getANN()
+	{
+		return annone;
+	}
 }
