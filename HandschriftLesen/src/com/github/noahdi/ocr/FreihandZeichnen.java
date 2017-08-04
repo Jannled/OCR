@@ -1,4 +1,4 @@
-package com.github.jannlednoah.ocrnoah;
+package com.github.noahdi.ocr;
 
 	import java.awt.Color;
 	import java.awt.Graphics; 

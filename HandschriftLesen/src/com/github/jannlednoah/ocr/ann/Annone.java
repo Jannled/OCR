@@ -7,7 +7,7 @@ import com.github.jannled.lib.math.Matrix;
  * @author Jannled
  * @version 1
  */
-public class Annone implements ANN
+public class Annone extends ANN
 {
 	final int inputNodes, middleNodes, outputNodes;
 	protected Matrix[] weights;
@@ -31,8 +31,15 @@ public class Annone implements ANN
 	@Override
 	public Matrix forward(Matrix data)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		Matrix output[] = new Matrix[3]; 
+		output[0] = data;
+		
+		for(int i=1; i<output.length; i++)
+		{
+			output[i] = ANN.sigmoid(output[i].multiply(weights[i-1]));
+		}
+		
+		return output[output.length-1];
 	}
 
 	@Override
