@@ -27,12 +27,13 @@ public class Interface_2
 	float feld[] = new float[30];
 	float alpha[] = new float[26];
 	float ja = 0.5f, nein = -0.5f;
-	char alphabet[] = new char{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+	char alphabet[] = new char[]{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
 	int min;
 	boolean leer;
 	FreihandZeichnen panel;
 	Annone ann = new Annone(30, 30, 26);
 	private JTextField textField;
+	int sss;
 	
 	/**
 	 * Launch the application.
@@ -74,11 +75,16 @@ public class Interface_2
 			for(int w=0;w<5;w++)
 			{
 				zeichen[q][w] = new JLabel("");
-				zeichen[q][w].setBounds(500+50*w, 100+50*q, 50, 50);
+				zeichen[q][w].setBounds(800+50*w, 100+50*q, 50, 50);
 				zeichen[q][w].setOpaque(true);
 				zeichen[q][w].setBackground(Color.WHITE);
 				frame.getContentPane().add(zeichen[q][w]);
 			}
+		}
+		
+		for(int i=0;i<26;i++)
+		{
+			alpha[i]=-0.5f;
 		}
 
 		
@@ -180,13 +186,23 @@ public class Interface_2
 			public void actionPerformed(ActionEvent e) {
 				
 				try{
-					String ss;
+					String tf;
 					
-					ss = textField.getText().toLowerCase();
+					tf = textField.getText().toLowerCase();
 					
 					
 					
-					ann.backpropagate(new Matrix(feld, 5,6),new Matrix( ));
+					for(int w=0;w<26;w++)
+					{
+						if(tf.equals(alphabet[w]))
+						{
+							alpha[w]=0.5f;
+							
+						}
+					}
+					
+					
+					ann.backpropagate(new Matrix(feld, 5,6),new Matrix(alpha, 1, 26));
 					
 				}catch(Exception ee)
 				{
@@ -202,6 +218,22 @@ public class Interface_2
 		textField.setBounds(410, 283, 250, 50);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
+		
+		JButton btnNewButton_1 = new JButton("Erkennen");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try{
+					
+					
+				}catch(Exception ee)
+				{
+					ann.forward(new Matrix(feld, 5,6));
+				}
+			}
+		});
+		btnNewButton_1.setBounds(410, 411, 250, 50);
+		frame.getContentPane().add(btnNewButton_1);
 		reset();
 	}
 	
