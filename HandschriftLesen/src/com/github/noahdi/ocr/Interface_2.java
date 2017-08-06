@@ -5,10 +5,16 @@ import java.awt.EventQueue;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+
+import com.github.jannled.lib.math.Matrix;
+import com.github.jannlednoah.ocr.ann.Annone;
+import javax.swing.JTextField;
+
 
 public class Interface_2 {
 
@@ -17,11 +23,15 @@ public class Interface_2 {
 	boolean feldB[][] = new boolean[6][5];
 	int feldI[][] = new int[6][5];
 	int feldF[][] = new int[6][5];
-	double feld[] = new double[30];
-	double ja = 0.5, nein = -0.5;
+	float feld[] = new float[30];
+	float alpha[] = new float[26];
+	float ja = 0.5f, nein = -0.5f;
+	char alphabet[] = new char{´a´,´b´,´c´,´d´,´e´,´f´,´g´,´h´,´i´,´j´,´k´,´l´,´m´,´n´,´o´,´p´,´q´,´r´,´s´,´t´,´u´,´v´,´w´,´x´,´y´,´z´};
 	int min;
 	boolean leer;
 	FreihandZeichnen panel;
+	Annone ann = new Annone(30, 30, 26);
+	private JTextField textField;
 	
 	/**
 	 * Launch the application.
@@ -101,7 +111,7 @@ public class Interface_2 {
 				}
 			}
 		});
-		btn0.setBounds(421, 460, 250, 50);
+		btn0.setBounds(410, 100, 250, 50);
 		frame.getContentPane().add(btn0);
 		
 		panel.setBackground(new Color(51, 102, 102));
@@ -144,7 +154,7 @@ public class Interface_2 {
 				}
 			}
 		});
-		btn1.setBounds(421, 510, 250, 50);
+		btn1.setBounds(410, 161, 250, 50);
 		frame.getContentPane().add(btn1);
 		
 		JButton btn2 = new JButton("Reset");
@@ -160,8 +170,37 @@ public class Interface_2 {
 				}
 			}
 		});
-		btn2.setBounds(100, 510, 250, 50);
+		btn2.setBounds(410, 222, 250, 50);
 		frame.getContentPane().add(btn2);
+		
+		
+		JButton btnNewButton = new JButton("Lernen");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try{
+					String ss;
+					
+					ss = textField.getText().toLowerCase();
+					
+					
+					
+					ann.backpropagate(new Matrix(feld, 5,6),new Matrix( ));
+					
+				}catch(Exception ee)
+				{
+					
+					
+				}
+			}
+		});
+		btnNewButton.setBounds(410, 350, 250, 50);
+		frame.getContentPane().add(btnNewButton);
+		
+		textField = new JTextField();
+		textField.setBounds(410, 283, 250, 50);
+		frame.getContentPane().add(textField);
+		textField.setColumns(10);
 		reset();
 	}
 	
@@ -219,5 +258,4 @@ public class Interface_2 {
 		
 			
 	}
-	
 }
