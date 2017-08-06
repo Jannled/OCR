@@ -14,8 +14,8 @@ import java.awt.Color;
 @SuppressWarnings("serial") 
 public class FreihandZeichnen extends JPanel implements MouseListener, MouseMotionListener 
 { 
-	int breite;
-	int hoehe;
+	static int breite;
+	static int hoehe;
 	boolean feldB[];
 	int counter[][];
     private int startX, startY, tempX, tempY; 
@@ -102,9 +102,9 @@ public class FreihandZeichnen extends JPanel implements MouseListener, MouseMoti
 		this.removeAll();
 		this.validate();
 		repaint();
-		for(int i=0;i<hoehe;i++)
+		for(int i=0;i<breite;i++)
 		{
-			for(int j=0;j<breite;j++)
+			for(int j=0;j<hoehe;j++)
 			{
 				counter[i][j]=0;
 			}
