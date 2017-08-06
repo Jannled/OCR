@@ -221,15 +221,9 @@ public class Interface_2
 		
 		JButton btnNewButton_1 = new JButton("Erkennen");
 		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				try{
-					
-					
-				}catch(Exception ee)
-				{
-					ann.forward(new Matrix(feld, 5,6));
-				}
+			public void actionPerformed(ActionEvent e) 
+			{
+				ann.forward(new Matrix(feld, 5,6));
 			}
 		});
 		btnNewButton_1.setBounds(410, 411, 250, 50);
