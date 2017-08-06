@@ -1,42 +1,57 @@
 package com.github.noahdi.ocr;
 
+/**
+ * imports
+ */
+
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
-import com.github.jannled.lib.math.Matrix;
-import com.github.jannlednoah.ocr.ann.Annone;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import com.github.jannled.lib.math.Matrix;
+import com.github.jannlednoah.ocr.ann.Annone;
+
+
+
 
 public class Interface_2 
 {
-
+	/**
+	 * attributes
+	 */
+	
 	private JFrame frame;
-	JLabel zeichen[][] = new JLabel[6][5];
-	boolean feldB[][] = new boolean[6][5];
-	int feldI[][] = new int[6][5];
-	int feldF[][] = new int[6][5];
-	float feld[] = new float[30];
+	JLabel zeichen[][];
+	boolean feldB[][];
+	int feldI[][];
+	int feldF[][];
+	float feld[];
 	float alpha[] = new float[26];
+	char alphabet[] = new char[]{'a','b','c','d','e','f',
+								 'g','h','i','j','k','l','m',
+								 'n','o','p','q','r','s','t',
+								 'u','v','w','x','y','z'};
 	float ja = 0.5f, nein = -0.5f;
-	char alphabet[] = new char[]{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-	int min;
 	boolean leer;
 	FreihandZeichnen panel;
-	Annone ann = new Annone(30, 30, 26);
+	Annone ann;
 	private JTextField letter;
-	int sss;
+	/**
+	 * Very very important!!!!
+	 */
 	
+				/* +++important!!!!+++ +++important!!!!+++ +++important!!!!+++*/	int breite =5, hoehe = 6;	/* +++important!!!!+++ +++important!!!!+++ +++important!!!!+++*/
+	int breitE =250, hoehE = 300;
+				
 	/**
 	 * Launch the application.
 	 */
@@ -65,19 +80,31 @@ public class Interface_2
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		/**
+		 * filling the attributes
+		 */
+		zeichen	= 	new JLabel[hoehe][breite];
+		feldB 	=	new boolean[hoehe][breite];
+		feldI	=	new int[hoehe][breite];
+		feldF 	= 	new int[hoehe][breite];
+		feld 	= 	new float[(hoehe*breite)];
+		ann 	= 	new Annone((hoehe*breite), (hoehe*breite), 26);
+		
+		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(SystemColor.scrollbar);
 		frame.setBounds(100, 100, 1080, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		panel = new FreihandZeichnen();
+		panel = new FreihandZeichnen(hoehe, breite);
 		
-		for(int q=0;q<6;q++)
+		for(int q=0;q<hoehe;q++)
 		{
-			for(int w=0;w<5;w++)
+			for(int w=0;w<breite;w++)
 			{
 				zeichen[q][w] = new JLabel("");
-				zeichen[q][w].setBounds(720+50*w, 100+50*q, 50, 50);
+				zeichen[q][w].setBounds(720+(breitE/breite)*w, 100+(hoehE/hoehe)*q, (breitE/breite), (hoehE/hoehe));
 				zeichen[q][w].setOpaque(true);
 				zeichen[q][w].setBackground(Color.WHITE);
 				frame.getContentPane().add(zeichen[q][w]);
@@ -86,7 +113,7 @@ public class Interface_2
 		
 		for(int i=0;i<26;i++)
 		{
-			alpha[i]=-0.5f;
+			alpha[i]=nein;
 		}
 
 		
@@ -162,7 +189,7 @@ public class Interface_2
 		know.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				ann.forward(new Matrix(feld, 5,6));
+				ann.forward(new Matrix(feld, breite,hoehe));
 			}
 		});
 		know.setBounds(410, 521, 250, 84);
@@ -197,31 +224,30 @@ public class Interface_2
 		{
 			if(tf.equals("" + alphabet[w]))
 			{
-				alpha[w]=0.5f;
+				alpha[w]=ja;
 				
 			}
 		}
 		
 		
-		ann.backpropagate(new Matrix(feld, 5,6),new Matrix(alpha, 1, 26));
+		ann.backpropagate(new Matrix(feld, breite,hoehe),new Matrix(alpha, 1, 26));
 	}
-	
 	
 	public void holen()
 	{
-		for(int i=0;i<6;i++)
+		for(int i=0;i<hoehe;i++)
 		{
-			for(int j=0;j<5;j++)
+			for(int j=0;j<breite;j++)
 			{
 				feldI[i][j]= panel.counter[i][j];
 				if(feldI[i][j]>0)
 				{
 					leer = false;
-					feld[i*5+j] = ja;
+					feld[i*breite+j] = ja;
 					feldB[i][j] = true;
 				}else
 				{
-					feld[i*5+j] = nein;
+					feld[i*breite+j] = nein;
 					feldB[i][j] = false;
 				}
 			}
@@ -233,11 +259,11 @@ public class Interface_2
 		System.out.println("");
 		System.out.println("");
 		Color temp;
-		for(int i=0; i<6; i++)
+		for(int i=0; i<hoehe; i++)
 		{
-			for(int j=0; j<5; j++)
+			for(int j=0; j<breite; j++)
 			{
-				System.out.print(" "+feld[i*5+j]);
+				System.out.print(" "+feld[i*breite+j]);
 				//
 				if(feldB[i][j]==true)
 				{
@@ -248,7 +274,7 @@ public class Interface_2
 			System.out.println("");
 		}
 		
-		for(int i=0; i<30; i++)
+		for(int i=0; i<(hoehe*breite); i++)
 		{
 			System.out.print(feld[i]+"");
 		}
@@ -258,13 +284,13 @@ public class Interface_2
 	{
 		panel.back();
 		leer = true;
-		for(int i =0;i<6;i++)	
+		for(int i =0;i<hoehe;i++)	
 		{
-			for(int j=0; j<5; j++)
+			for(int j=0; j<breite; j++)
 			{
 				feldB[i][j]= false;
 				zeichen[i][j].setBackground(Color.WHITE);
-				feld[i*5+j] = nein;
+				feld[i*breite+j] = nein;
 			}
 		}
 		letter.setText("");

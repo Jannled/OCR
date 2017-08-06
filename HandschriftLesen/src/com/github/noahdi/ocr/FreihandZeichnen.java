@@ -14,13 +14,26 @@ import java.awt.Color;
 @SuppressWarnings("serial") 
 public class FreihandZeichnen extends JPanel implements MouseListener, MouseMotionListener 
 { 
-
-	boolean feldB[] = new boolean[30];
-	int counter[][] = new int[6][5];
+	int breite;
+	int hoehe;
+	boolean feldB[];
+	int counter[][];
     private int startX, startY, tempX, tempY; 
     private Graphics2D g2; 
     int f=0;
 
+    
+    public FreihandZeichnen(int h, int b)
+    {
+    	System.out.println("Freihandzeichnen aufgerufen...");
+        this.addMouseListener(this); 
+        this.addMouseMotionListener(this);
+        breite= b;
+        hoehe= h;
+        feldB =new boolean[breite*hoehe];
+        counter = new int[breite][hoehe];
+    }
+    
     public FreihandZeichnen() { 
         System.out.println("Freihandzeichnen aufgerufen...");
         this.addMouseListener(this); 
@@ -41,9 +54,8 @@ public class FreihandZeichnen extends JPanel implements MouseListener, MouseMoti
 
     public static void main(String[] args) { 
         JFrame frame = new JFrame(); 
-        frame.add(new FreihandZeichnen()); 
-        //frame.setSize(500, 600); 
-        //frame.setTitle("FreihandZeichnen");
+        frame.add(new FreihandZeichnen(hoehe, breite)); 
+ 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         frame.setVisible(true); 
     } 
@@ -90,9 +102,9 @@ public class FreihandZeichnen extends JPanel implements MouseListener, MouseMoti
 		this.removeAll();
 		this.validate();
 		repaint();
-		for(int i=0;i<6;i++)
+		for(int i=0;i<hoehe;i++)
 		{
-			for(int j=0;j<5;j++)
+			for(int j=0;j<breite;j++)
 			{
 				counter[i][j]=0;
 			}
