@@ -194,7 +194,7 @@ public class Interface_2
 					
 					for(int w=0;w<26;w++)
 					{
-						if(tf.equals(alphabet[w]))
+						if(tf.equals("" + alphabet[w]))
 						{
 							alpha[w]=0.5f;
 							
