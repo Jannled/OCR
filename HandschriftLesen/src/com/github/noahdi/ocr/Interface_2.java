@@ -14,6 +14,8 @@ import javax.swing.JLabel;
 import com.github.jannled.lib.math.Matrix;
 import com.github.jannlednoah.ocr.ann.Annone;
 import javax.swing.JTextField;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 
 public class Interface_2 
@@ -32,7 +34,7 @@ public class Interface_2
 	boolean leer;
 	FreihandZeichnen panel;
 	Annone ann = new Annone(30, 30, 26);
-	private JTextField textField;
+	private JTextField letter;
 	int sss;
 	
 	/**
@@ -75,7 +77,7 @@ public class Interface_2
 			for(int w=0;w<5;w++)
 			{
 				zeichen[q][w] = new JLabel("");
-				zeichen[q][w].setBounds(800+50*w, 100+50*q, 50, 50);
+				zeichen[q][w].setBounds(720+50*w, 100+50*q, 50, 50);
 				zeichen[q][w].setOpaque(true);
 				zeichen[q][w].setBackground(Color.WHITE);
 				frame.getContentPane().add(zeichen[q][w]);
@@ -88,29 +90,15 @@ public class Interface_2
 		}
 
 		
-		JButton btn0 = new JButton("Holen");
-		btn0.addActionListener(new ActionListener() {
+		JButton getter = new JButton("Holen");
+		getter.setBackground(new Color(0, 100, 0));
+		getter.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
+		getter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				try{
-					for(int i=0;i<6;i++)
-					{
-						for(int j=0;j<5;j++)
-						{
-							feldI[i][j]= panel.counter[i][j];
-							if(feldI[i][j]>0)
-							{
-								leer = false;
-								feld[i*5+j] = ja;
-								feldB[i][j] = true;
-							}else
-							{
-								feld[i*5+j] = nein;
-								feldB[i][j] = false;
-							}
-						}
-					}
-					
+					holen();
+					zeigen();
 					
 				}catch(Exception ee)
 				{
@@ -118,54 +106,16 @@ public class Interface_2
 				}
 			}
 		});
-		btn0.setBounds(410, 100, 250, 50);
-		frame.getContentPane().add(btn0);
+		getter.setBounds(410, 100, 250, 145);
+		frame.getContentPane().add(getter);
 		
 		panel.setBackground(new Color(51, 102, 102));
 		panel.setBounds(100, 100, 250, 300);
 		frame.getContentPane().add(panel);
 		
-		JButton btn1 = new JButton("Zeigen");
-		btn1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				try{
-					
-					System.out.println("");
-					System.out.println("");
-					Color temp;
-					for(int i=0; i<6; i++)
-					{
-						for(int j=0; j<5; j++)
-						{
-							System.out.print(" "+feld[i*5+j]);
-							//
-							if(feldB[i][j]==true)
-							{
-								temp = new Color(0,(255-getF(i,j)),0);
-								zeichen[i][j].setBackground(temp);
-							}
-						}
-						System.out.println("");
-					}
-					
-					for(int i=0; i<30; i++)
-					{
-						System.out.print(feld[i]+"");
-					}
-					
-					
-				}catch(Exception ee)
-				{
-					
-				}
-			}
-		});
-		btn1.setBounds(410, 161, 250, 50);
-		frame.getContentPane().add(btn1);
-		
-		JButton btn2 = new JButton("Reset");
-		btn2.addActionListener(new ActionListener() {
+		JButton reset = new JButton("Reset");
+		reset.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
+		reset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				try{
@@ -177,32 +127,18 @@ public class Interface_2
 				}
 			}
 		});
-		btn2.setBounds(410, 222, 250, 50);
-		frame.getContentPane().add(btn2);
+		reset.setBounds(410, 255, 250, 145);
+		frame.getContentPane().add(reset);
 		
 		
-		JButton btnNewButton = new JButton("Lernen");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton lern = new JButton("Lernen");
+		lern.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
+		lern.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				try{
-					String tf;
-					
-					tf = textField.getText().toLowerCase();
-					
-					
-					
-					for(int w=0;w<26;w++)
-					{
-						if(tf.equals("" + alphabet[w]))
-						{
-							alpha[w]=0.5f;
-							
-						}
-					}
-					
-					
-					ann.backpropagate(new Matrix(feld, 5,6),new Matrix(alpha, 1, 26));
+					lernen();
+					reset();
 					
 				}catch(Exception ee)
 				{
@@ -211,24 +147,111 @@ public class Interface_2
 				}
 			}
 		});
-		btnNewButton.setBounds(410, 350, 250, 50);
-		frame.getContentPane().add(btnNewButton);
+		lern.setBounds(100, 522, 250, 84);
+		frame.getContentPane().add(lern);
 		
-		textField = new JTextField();
-		textField.setBounds(410, 283, 250, 50);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		letter = new JTextField();
+		letter.setHorizontalAlignment(SwingConstants.CENTER);
+		letter.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
+		letter.setBounds(100, 460, 250, 50);
+		frame.getContentPane().add(letter);
+		letter.setColumns(10);
 		
-		JButton btnNewButton_1 = new JButton("Erkennen");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton know = new JButton("Erkennen");
+		know.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
+		know.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
 				ann.forward(new Matrix(feld, 5,6));
 			}
 		});
-		btnNewButton_1.setBounds(410, 411, 250, 50);
-		frame.getContentPane().add(btnNewButton_1);
+		know.setBounds(410, 521, 250, 84);
+		frame.getContentPane().add(know);
+		
+		JLabel lblNewLabel = new JLabel("Erkannter Buchstabe:");
+		lblNewLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(410, 460, 250, 50);
+		frame.getContentPane().add(lblNewLabel);
+		
+		JLabel titel = new JLabel("<html>J&N Handschrifterkennung<sup><FONT SIZE=\"4\">TM</sup></html>");
+		titel.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
+		titel.setBounds(100, 11, 560, 90);
+		frame.getContentPane().add(titel);
+		
+		JLabel lblNewLabel_1 = new JLabel("a product powered by JannLed und NoahDi");
+		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblNewLabel_1.setBounds(100, 617, 560, 39);
+		frame.getContentPane().add(lblNewLabel_1);
 		reset();
+	}
+	public void lernen()
+	{
+		String tf;
+		
+		tf = letter.getText().toLowerCase();
+		
+		
+		
+		for(int w=0;w<26;w++)
+		{
+			if(tf.equals("" + alphabet[w]))
+			{
+				alpha[w]=0.5f;
+				
+			}
+		}
+		
+		
+		ann.backpropagate(new Matrix(feld, 5,6),new Matrix(alpha, 1, 26));
+	}
+	
+	
+	public void holen()
+	{
+		for(int i=0;i<6;i++)
+		{
+			for(int j=0;j<5;j++)
+			{
+				feldI[i][j]= panel.counter[i][j];
+				if(feldI[i][j]>0)
+				{
+					leer = false;
+					feld[i*5+j] = ja;
+					feldB[i][j] = true;
+				}else
+				{
+					feld[i*5+j] = nein;
+					feldB[i][j] = false;
+				}
+			}
+		}
+	}
+	
+	public void zeigen()
+	{
+		System.out.println("");
+		System.out.println("");
+		Color temp;
+		for(int i=0; i<6; i++)
+		{
+			for(int j=0; j<5; j++)
+			{
+				System.out.print(" "+feld[i*5+j]);
+				//
+				if(feldB[i][j]==true)
+				{
+					temp = new Color(0,(255-getF(i,j)),0);
+					zeichen[i][j].setBackground(temp);
+				}
+			}
+			System.out.println("");
+		}
+		
+		for(int i=0; i<30; i++)
+		{
+			System.out.print(feld[i]+"");
+		}
 	}
 	
 	public void reset()
@@ -244,34 +267,10 @@ public class Interface_2
 				feld[i*5+j] = nein;
 			}
 		}
+		letter.setText("");
 		
 	}
-	
-	public void min()
-	{
-		if(leer==false)
-		{
-		int temp=1000000000;
-		int tempi[] = new int[30];
-		
-		for(int c =0;c<6;c++)	
-		{
-			for(int v=0; v<5; v++)
-			{
-				tempi[c*5+v]=feldI[c][v];
-			}		
-		}
-		
-		for(int b=0;b<30;b++)
-		{
-			if(tempi[b]<temp&&!(tempi[b]==0))
-			{
-				temp =tempi[b];
-			}
-		}
-		min =temp;
-		}
-	}
+
 	public int getF(int a,int b)
 	{
 		if(feldI[a][b]<255)
