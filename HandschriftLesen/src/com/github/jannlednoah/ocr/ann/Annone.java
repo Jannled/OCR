@@ -45,7 +45,6 @@ public class Annone extends ANN
 	@Override
 	public void backpropagate(Matrix data, Matrix result)
 	{
-		// TODO Auto-generated method stub
 		
 	}
 	

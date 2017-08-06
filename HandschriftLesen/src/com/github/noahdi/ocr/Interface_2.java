@@ -16,7 +16,8 @@ import com.github.jannlednoah.ocr.ann.Annone;
 import javax.swing.JTextField;
 
 
-public class Interface_2 {
+public class Interface_2 
+{
 
 	private JFrame frame;
 	JLabel zeichen[][] = new JLabel[6][5];
@@ -26,7 +27,7 @@ public class Interface_2 {
 	float feld[] = new float[30];
 	float alpha[] = new float[26];
 	float ja = 0.5f, nein = -0.5f;
-	char alphabet[] = new char{´a´,´b´,´c´,´d´,´e´,´f´,´g´,´h´,´i´,´j´,´k´,´l´,´m´,´n´,´o´,´p´,´q´,´r´,´s´,´t´,´u´,´v´,´w´,´x´,´y´,´z´};
+	char alphabet[] = new char{'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
 	int min;
 	boolean leer;
 	FreihandZeichnen panel;
