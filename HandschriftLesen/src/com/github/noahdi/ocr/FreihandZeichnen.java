@@ -45,7 +45,7 @@ public class FreihandZeichnen extends JPanel implements MouseListener, MouseMoti
     protected void paintComponent(Graphics g) { 
         // hier darf kein super.paintComponent() aufgerufen werden! 
         g2 = (Graphics2D) g;
-        ff();
+        color();
         g2.fillRect(0, 0, 250, 300);
         g2.setPaintMode();
         g2.setColor(Color.BLACK);
@@ -113,7 +113,7 @@ public class FreihandZeichnen extends JPanel implements MouseListener, MouseMoti
 		}
     }
     
-    public void ff()
+    public void color()
     {
     	if(f==0)
     	{
