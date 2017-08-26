@@ -189,7 +189,7 @@ public class Interface_2
 		know.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				ann.forward(new Matrix(feld, breite,hoehe));
+				ann.forward(new Matrix(feld, breite, hoehe));
 			}
 		});
 		know.setBounds(410, 521, 250, 84);
