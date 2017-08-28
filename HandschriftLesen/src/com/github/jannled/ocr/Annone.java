@@ -1,4 +1,4 @@
-package com.github.jannlednoah.ocr.ann;
+package com.github.jannled.ocr;
 
 import com.github.jannled.lib.math.Matrix;
 
@@ -12,7 +12,7 @@ public class Annone extends ANN
 	final int inputNodes, middleNodes, outputNodes;
 	protected Matrix[] weights;
 	
-	private static final int RANDOM = 0x11111111; 
+	private static final int RANDOM = 0x11111111;
 	
 	/**
 	 * Create the ANN with the specified amounts of nodes and 0.5 as start weights.
@@ -37,15 +37,16 @@ public class Annone extends ANN
 	@Override
 	public Matrix forward(Matrix data)
 	{
-		Matrix output[] = new Matrix[3]; 
-		output[0] = data;
+		Matrix layers[] = new Matrix[3]; 
+		layers[0] = data;
 		
-		for(int i=1; i<output.length; i++)
+		for(int i=1; i<layers.length; i++)
 		{
-			output[i] = ANN.sigmoid(output[i].multiply(weights[i-1]));
+			Matrix mul = layers[i-1].multiply(weights[i-1]);
+			layers[i] = ANN.sigmoid(mul);
 		}
 		
-		return output[output.length-1];
+		return layers[layers.length-1];
 	}
 
 	/**

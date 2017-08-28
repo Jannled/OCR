@@ -1,4 +1,4 @@
-package com.github.jannlednoah.ocr.ann;
+package com.github.jannled.ocr;
 
 import com.github.jannled.lib.math.Matrix;
 
@@ -25,7 +25,6 @@ public abstract class ANN
 	/**
 	 * Sigmoid activation function
 	 */
-	
 	public static Matrix sigmoid(Matrix m)
 	{
 		Matrix out = new Matrix(m.getWidth(), m.getHeight());

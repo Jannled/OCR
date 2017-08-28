@@ -18,7 +18,7 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 
 import com.github.jannled.lib.math.Matrix;
-import com.github.jannlednoah.ocr.ann.Annone;
+import com.github.jannled.ocr.Annone;
 
 
 
