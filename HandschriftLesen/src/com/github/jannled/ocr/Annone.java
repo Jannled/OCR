@@ -26,8 +26,8 @@ public class Annone extends ANN
 		this.middleNodes = middleNodes;
 		this.outputNodes = outputNodes;
 		weights = new Matrix[2];
-		weights[0] = new Matrix(startWeights(inputNodes, middleNodes, 0.5f));
-		weights[1] = new Matrix(startWeights(middleNodes, outputNodes, 0.5f));
+		weights[0] = new Matrix(startWeights(inputNodes*middleNodes, 1, 0.5f));
+		weights[1] = new Matrix(startWeights(middleNodes*outputNodes, 1, 0.5f));
 	}
 
 	/**
