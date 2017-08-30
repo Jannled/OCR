@@ -7,7 +7,9 @@ import java.awt.Color;
 	import java.awt.event.MouseListener; 
 	import java.awt.event.MouseMotionListener;
 	import javax.swing.JFrame; 
-	import javax.swing.JPanel; 
+	import javax.swing.JPanel;
+
+import com.github.jannled.lib.Print; 
 
 
 
@@ -27,7 +29,7 @@ public class FreihandZeichnen extends JPanel implements MouseListener, MouseMoti
     
     public FreihandZeichnen(int h, int b)
     {
-    	System.out.println("Freihandzeichnen aufgerufen...");
+    	Print.m("Freihandzeichnen aufgerufen...");
         this.addMouseListener(this); 
         this.addMouseMotionListener(this);
         breite= b;
@@ -37,7 +39,7 @@ public class FreihandZeichnen extends JPanel implements MouseListener, MouseMoti
     }
     
     public FreihandZeichnen() { 
-        System.out.println("Freihandzeichnen aufgerufen...");
+        Print.m("Freihandzeichnen aufgerufen...");
         this.addMouseListener(this); 
         this.addMouseMotionListener(this); 
     } 
@@ -96,7 +98,7 @@ public class FreihandZeichnen extends JPanel implements MouseListener, MouseMoti
     		y =(int) y/(hoehE/hoehe);
     	
     		counter[y][x]++;
-    		System.out.println(x+", " +y  +", "+counter[y][x]);
+    		Print.d(x+", " +y  +", "+counter[y][x]);
  
     }
     public void back()

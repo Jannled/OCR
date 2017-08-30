@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import com.github.jannled.lib.Print;
 import com.github.jannled.lib.math.Matrix;
 import com.github.jannled.ocr.Annone;
 
@@ -36,6 +37,7 @@ public class Interface_2
 	int feldF[][];
 	float feld[];
 	float alpha[] = new float[26];
+	/** All chars the ANN can learn, currently 26 */
 	char alphabet[] = new char[]{'a','b','c','d','e','f',
 								 'g','h','i','j','k','l','m',
 								 'n','o','p','q','r','s','t',
@@ -89,7 +91,7 @@ public class Interface_2
 		feldI	=	new int[hoehe][breite];
 		feldF 	= 	new int[hoehe][breite];
 		feld 	= 	new float[(hoehe*breite)];
-		ann 	= 	new Annone((hoehe*breite), (hoehe*breite), 26);
+		ann 	= 	new Annone((hoehe*breite), (hoehe+breite), alphabet.length);
 		
 		
 		frame = new JFrame();
@@ -189,7 +191,7 @@ public class Interface_2
 		know.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				ann.forward(new Matrix(feld, breite, hoehe));
+				ann.forward(new Matrix(feld, 1, feld.length));
 			}
 		});
 		know.setBounds(410, 521, 250, 84);
@@ -230,7 +232,7 @@ public class Interface_2
 		}
 		
 		
-		ann.backpropagate(new Matrix(feld, breite,hoehe),new Matrix(alpha, 1, 26));
+		ann.backpropagate(new Matrix(feld, 1, feld.length),new Matrix(alpha, 1, alpha.length));
 	}
 	
 	public void holen()
@@ -256,14 +258,14 @@ public class Interface_2
 	
 	public void zeigen()
 	{
-		System.out.println("");
-		System.out.println("");
+		Print.d("");
+		Print.d("");
 		Color temp;
 		for(int i=0; i<hoehe; i++)
 		{
 			for(int j=0; j<breite; j++)
 			{
-				System.out.print(" "+feld[i*breite+j]);
+				Print.d(" "+feld[i*breite+j]);
 				//
 				if(feldB[i][j]==true)
 				{
@@ -271,12 +273,12 @@ public class Interface_2
 					zeichen[i][j].setBackground(temp);
 				}
 			}
-			System.out.println("");
+			Print.d("");
 		}
 		
 		for(int i=0; i<(hoehe*breite); i++)
 		{
-			System.out.print(feld[i]+"");
+			Print.d(feld[i]+"");
 		}
 	}
 	
