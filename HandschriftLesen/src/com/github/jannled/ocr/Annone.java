@@ -26,8 +26,8 @@ public class Annone extends ANN
 		this.middleNodes = middleNodes;
 		this.outputNodes = outputNodes;
 		weights = new Matrix[2];
-		weights[0] = new Matrix(startWeights(1, inputNodes*middleNodes, 0.5f));
-		weights[1] = new Matrix(startWeights(1, middleNodes*outputNodes, 0.5f));
+		weights[0] = new Matrix(startWeights(1, inputNodes*middleNodes, RANDOM));
+		weights[1] = new Matrix(startWeights(1, middleNodes*outputNodes, RANDOM));
 	}
 
 	/**
@@ -37,12 +37,12 @@ public class Annone extends ANN
 	@Override
 	public Matrix forward(Matrix data)
 	{
-		Matrix layers[] = new Matrix[3]; 
+		Matrix layers[] = new Matrix[3];
 		layers[0] = data;
 		
 		for(int i=1; i<layers.length; i++)
 		{
-			Matrix mul = layers[i-1].multiply(weights[i-1]);
+			Matrix mul = ANN.rowsum(layers[i-1].multiply(weights[i-1]));
 			layers[i] = ANN.sigmoid(mul);
 		}
 		

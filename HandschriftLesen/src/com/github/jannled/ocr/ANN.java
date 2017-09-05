@@ -36,4 +36,25 @@ public abstract class ANN
 		
 		return out;
 	}
+	
+	/**
+	 * Add all weights in a row together for the next neurons.
+	 * @param m The result weights.
+	 * @return 
+	 */
+	public static Matrix rowsum(Matrix m)
+	{
+		Matrix out = new Matrix(1, m.getHeight());
+		
+		for(int y=0; y<m.getHeight(); y++)
+		{
+			float row = 0;
+			for(int x=0; x<m.getWidth(); x++)
+			{
+				row += m.get(x, y);
+			}
+			out.set(0, y, row);
+		}
+		return out;
+	}
 }
