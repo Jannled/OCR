@@ -42,7 +42,7 @@ public class Interface_2
 								 'g','h','i','j','k','l','m',
 								 'n','o','p','q','r','s','t',
 								 'u','v','w','x','y','z'};
-	float ja = 0.1f, nein = 0.0f;
+	float ja = 1.0f, nein = 0.0f;
 	boolean leer;
 	FreihandZeichnen panel;
 	Annone ann;
@@ -191,7 +191,7 @@ public class Interface_2
 		know.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				ann.forward(new Matrix(feld, 1, feld.length));
+				Print.m("Die Ergebnisse: \n" + ann.forward(new Matrix(feld, 1, feld.length)).toString());
 			}
 		});
 		know.setBounds(410, 521, 250, 84);

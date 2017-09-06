@@ -31,7 +31,8 @@ public abstract class ANN
 		
 		for(int i=0; i<m.getValues().length; i++)
 		{
-			out.getValues()[i] = (float) (1/(1 + Math.pow(Math.E, -m.getValues()[i])));
+			double pow = Math.pow(Math.E, -m.getValues()[i]);
+			out.getValues()[i] =  (1/(1 + pow));
 		}
 		
 		return out;

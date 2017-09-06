@@ -26,8 +26,8 @@ public class Annone extends ANN
 		this.middleNodes = middleNodes;
 		this.outputNodes = outputNodes;
 		weights = new Matrix[2];
-		weights[0] = new Matrix(startWeights(1, inputNodes*middleNodes, RANDOM));
-		weights[1] = new Matrix(startWeights(1, middleNodes*outputNodes, RANDOM));
+		weights[0] = new Matrix(startWeights(middleNodes, inputNodes, 0));
+		weights[1] = new Matrix(startWeights(outputNodes, middleNodes, 0));
 	}
 
 	/**
@@ -42,9 +42,8 @@ public class Annone extends ANN
 		
 		for(int i=1; i<layers.length; i++)
 		{
-			Matrix weightout = layers[i-1].multiply(weights[i-1]);
-			Matrix neuronin = ANN.rowsum(weightout);
-			layers[i] = ANN.sigmoid(neuronin);
+			Matrix inputs = weights[i-1].multiply(layers[i-1]);
+			layers[i] = ANN.sigmoid(inputs);
 		}
 		
 		return layers[layers.length-1];
@@ -68,7 +67,7 @@ public class Annone extends ANN
 	 * @param value  The start value for each weight, or use the constant <code>RANDOM</code> to use random start weights.
 	 * @return A matrix containing all the weights for the artificial neuronal network.
 	 */
-	private double[][] startWeights(int nodes1, int nodes2, float value)
+	private double[][] startWeights(int nodes1, int nodes2, double value)
 	{
 		double[][] out = new double[nodes1][nodes2];
 		
