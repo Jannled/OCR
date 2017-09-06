@@ -9,7 +9,7 @@ import com.github.jannled.lib.math.Matrix;
  */
 public class Annone extends ANN
 {
-	final int inputNodes, middleNodes, outputNodes;
+	final protected int inputNodes, middleNodes, outputNodes;
 	protected Matrix[] weights;
 	
 	private static final int RANDOM = 0x11111111;
@@ -26,8 +26,8 @@ public class Annone extends ANN
 		this.middleNodes = middleNodes;
 		this.outputNodes = outputNodes;
 		weights = new Matrix[2];
-		weights[0] = new Matrix(startWeights(1, inputNodes*middleNodes, RANDOM));
-		weights[1] = new Matrix(startWeights(1, middleNodes*outputNodes, RANDOM));
+		weights[0] = new Matrix(startWeights(1, inputNodes*middleNodes, 1));
+		weights[1] = new Matrix(startWeights(1, middleNodes*outputNodes, 1));
 	}
 
 	/**
@@ -42,8 +42,9 @@ public class Annone extends ANN
 		
 		for(int i=1; i<layers.length; i++)
 		{
-			Matrix mul = ANN.rowsum(layers[i-1].multiply(weights[i-1]));
-			layers[i] = ANN.sigmoid(mul);
+			Matrix weightout = layers[i-1].multiply(weights[i-1]);
+			Matrix neuronin = ANN.rowsum(weightout);
+			layers[i] = ANN.sigmoid(neuronin);
 		}
 		
 		return layers[layers.length-1];
@@ -93,5 +94,10 @@ public class Annone extends ANN
 		}
 		
 		return out;
+	}
+	
+	public Matrix[] getWeights()
+	{
+		return weights;
 	}
 }

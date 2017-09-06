@@ -42,7 +42,7 @@ public class Interface_2
 								 'g','h','i','j','k','l','m',
 								 'n','o','p','q','r','s','t',
 								 'u','v','w','x','y','z'};
-	float ja = 0.5f, nein = -0.5f;
+	float ja = 0.1f, nein = 0.0f;
 	boolean leer;
 	FreihandZeichnen panel;
 	Annone ann;
