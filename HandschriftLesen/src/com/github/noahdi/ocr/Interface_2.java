@@ -35,8 +35,8 @@ public class Interface_2
 	boolean feldB[][];
 	int feldI[][];
 	int feldF[][];
-	float feld[];
-	float alpha[] = new float[26];
+	double[] feld;
+	double[] alpha = new double[26];
 	/** All chars the ANN can learn, currently 26 */
 	char alphabet[] = new char[]{'a','b','c','d','e','f',
 								 'g','h','i','j','k','l','m',
@@ -90,7 +90,7 @@ public class Interface_2
 		feldB 	=	new boolean[hoehe][breite];
 		feldI	=	new int[hoehe][breite];
 		feldF 	= 	new int[hoehe][breite];
-		feld 	= 	new float[(hoehe*breite)];
+		feld 	= 	new double[(hoehe*breite)];
 		ann 	= 	new Annone((hoehe*breite), (hoehe+breite), alphabet.length);
 		
 		
