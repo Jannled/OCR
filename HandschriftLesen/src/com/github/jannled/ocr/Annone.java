@@ -51,8 +51,8 @@ public class Annone extends ANN
 
 	/**
 	 * Use the backpropagation algorithm to adjust the weights of the matrix, by resolving the error value created by the data and result. 
-	 * @param data The input data to adjust the weights on
-	 * @param result The expected result for this set of data
+	 * @param data The input data to adjust the weights on.
+	 * @param result The expected result for this set of data.
 	 */
 	@Override
 	public void backpropagate(Matrix data, Matrix result)
