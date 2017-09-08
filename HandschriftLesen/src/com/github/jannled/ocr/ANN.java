@@ -39,22 +39,17 @@ public abstract class ANN
 	}
 	
 	/**
-	 * Add all weights in a row together for the next neurons.
-	 * @param m The result weights.
-	 * @return 
+	 * Get the sum of all elements in the matrix.
+	 * @param m The matrix to build the sum.
+	 * @return The sum of the matrix.
 	 */
-	public static Matrix rowsum(Matrix m)
+	public static double sum(Matrix m)
 	{
-		Matrix out = new Matrix(1, m.getHeight());
+		double out = 0;
 		
-		for(int y=0; y<m.getHeight(); y++)
+		for(int i=0; i<m.getHeight(); i++)
 		{
-			float row = 0;
-			for(int x=0; x<m.getWidth(); x++)
-			{
-				row += m.get(x, y);
-			}
-			out.set(0, y, row);
+			out += m.getValues()[i];
 		}
 		return out;
 	}
