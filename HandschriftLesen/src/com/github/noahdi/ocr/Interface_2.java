@@ -56,6 +56,7 @@ public class Interface_2
 				
 	/**
 	 * Launch the application.
+	 * @param args Command line start arguments.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

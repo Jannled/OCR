@@ -94,7 +94,7 @@ public class Annone extends ANN
 	
 	/**
 	 * Set the current learn progress.
-	 * @return All weights for the different layers. 
+	 * @param weights All weights for the different layers. 
 	 */
 	public void setWeights(Matrix[] weights)
 	{

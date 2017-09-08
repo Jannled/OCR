@@ -24,6 +24,8 @@ public abstract class ANN
 	
 	/**
 	 * Sigmoid activation function
+	 * @param m The matrix to apply the sigmoid function to.
+	 * @return The matrix with the applied sigmoid function.
 	 */
 	public static Matrix sigmoid(Matrix m)
 	{
