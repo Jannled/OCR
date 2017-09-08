@@ -1,5 +1,6 @@
 package com.github.jannled.ocr;
 
+import com.github.jannled.lib.math.Maths;
 import com.github.jannled.lib.math.Matrix;
 
 /**
@@ -10,9 +11,8 @@ import com.github.jannled.lib.math.Matrix;
 public class Annone extends ANN
 {
 	final protected int inputNodes, middleNodes, outputNodes;
+	final protected int[] nodes;
 	protected Matrix[] weights;
-	
-	private static final int RANDOM = 0x11111111;
 	
 	/**
 	 * Create the ANN with the specified amounts of nodes and 0.5 as start weights.
@@ -25,9 +25,13 @@ public class Annone extends ANN
 		this.inputNodes = inputNodes;
 		this.middleNodes = middleNodes;
 		this.outputNodes = outputNodes;
+		nodes = new int[] {inputNodes, middleNodes, outputNodes};
+		
 		weights = new Matrix[2];
-		weights[0] = new Matrix(startWeights(middleNodes, inputNodes, 0));
-		weights[1] = new Matrix(startWeights(outputNodes, middleNodes, 0));
+		for(int i=0; i<weights.length; i++)
+		{
+			weights[i] = new Matrix(generateWeights(nodes[i], nodes[i+1]), nodes[i], nodes[i+1]);
+		}
 	}
 
 	/**
@@ -64,39 +68,36 @@ public class Annone extends ANN
 	 * Calculate some start weights.
 	 * @param nodes1 The amount of nodes in the first layer.
 	 * @param nodes2 The amount of nodes in the second layer.
-	 * @param value  The start value for each weight, or use the constant <code>RANDOM</code> to use random start weights.
 	 * @return A matrix containing all the weights for the artificial neuronal network.
 	 */
-	private double[][] startWeights(int nodes1, int nodes2, double value)
+	private double[] generateWeights(int nodes1, int nodes2)
 	{
-		double[][] out = new double[nodes1][nodes2];
-		
-		if(value != RANDOM)
+		double[] out = new double[nodes1*nodes2];
+		float weightrange = (float) (1/Math.sqrt(nodes1));
+
+		for(int i=0; i<nodes1*nodes2; i++)
 		{
-			for(int a=0; a<nodes1; a++)
-			{
-				for(int b=0; b<nodes2; b++)
-				{
-					out[a][b] = value;
-				}
-			}
-		}
-		else
-		{
-			for(int a=0; a<nodes1; a++)
-			{
-				for(int b=0; b<nodes2; b++)
-				{
-					out[a][b] = (float) Math.random();
-				}
-			}
+			out[i] = (float) Maths.map(Math.random(), 0, 1, -weightrange, weightrange);
 		}
 		
 		return out;
 	}
 	
+	/**
+	 * Get the current learn progress.
+	 * @return All weights for the different layers. 
+	 */
 	public Matrix[] getWeights()
 	{
 		return weights;
+	}
+	
+	/**
+	 * Set the current learn progress.
+	 * @return All weights for the different layers. 
+	 */
+	public void setWeights(Matrix[] weights)
+	{
+		this.weights = weights;
 	}
 }
