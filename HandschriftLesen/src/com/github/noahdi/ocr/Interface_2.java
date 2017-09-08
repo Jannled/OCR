@@ -92,7 +92,7 @@ public class Interface_2
 		feldI	=	new int[hoehe][breite];
 		feldF 	= 	new int[hoehe][breite];
 		feld 	= 	new double[(hoehe*breite)];
-		ann 	= 	new Annone((hoehe*breite), (hoehe+breite), alphabet.length);
+		ann 	= 	new Annone((hoehe*breite), (hoehe+breite), alphabet.length, 0.3f);
 		
 		
 		frame = new JFrame();

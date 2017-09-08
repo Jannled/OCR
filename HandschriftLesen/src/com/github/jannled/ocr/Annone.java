@@ -19,8 +19,9 @@ public class Annone extends ANN
 	 * @param inputNodes The amount of input neurons.
 	 * @param middleNodes The amount of deep neurons.
 	 * @param outputNodes The amount of output neurons.
+	 * @param learningrate The rate the weights should be updated with each step.
 	 */
-	public Annone(int inputNodes, int middleNodes, int outputNodes)
+	public Annone(int inputNodes, int middleNodes, int outputNodes, float learningrate)
 	{
 		this.inputNodes = inputNodes;
 		this.middleNodes = middleNodes;
