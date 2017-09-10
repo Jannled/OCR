@@ -1,5 +1,7 @@
 package com.github.jannled.ocr;
 
+import java.beans.FeatureDescriptor;
+
 import com.github.jannled.lib.math.Maths;
 import com.github.jannled.lib.math.Matrix;
 
@@ -11,8 +13,10 @@ import com.github.jannled.lib.math.Matrix;
 public class Annone extends ANN
 {
 	final protected int inputNodes, middleNodes, outputNodes;
-	final protected int[] nodes;
+	final protected int[] layers;
 	protected Matrix[] weights;
+	protected Matrix[] nodes;
+	protected float learningrate;
 	
 	/**
 	 * Create the ANN with the specified amounts of nodes and 0.5 as start weights.
@@ -26,12 +30,13 @@ public class Annone extends ANN
 		this.inputNodes = inputNodes;
 		this.middleNodes = middleNodes;
 		this.outputNodes = outputNodes;
-		nodes = new int[] {inputNodes, middleNodes, outputNodes};
+		this.learningrate = learningrate;
+		layers = new int[] {inputNodes, middleNodes, outputNodes};
 		
 		weights = new Matrix[2];
 		for(int i=0; i<weights.length; i++)
 		{
-			weights[i] = new Matrix(generateWeights(nodes[i], nodes[i+1]), nodes[i], nodes[i+1]);
+			weights[i] = new Matrix(generateWeights(layers[i], layers[i+1]), layers[i], layers[i+1]);
 		}
 	}
 
@@ -42,16 +47,16 @@ public class Annone extends ANN
 	@Override
 	public Matrix forward(Matrix data)
 	{
-		Matrix layers[] = new Matrix[3];
-		layers[0] = data;
+		nodes = new Matrix[3];
+		nodes[0] = data;
 		
-		for(int i=1; i<layers.length; i++)
+		for(int i=1; i<nodes.length; i++)
 		{
-			Matrix inputs = weights[i-1].multiply(layers[i-1]);
-			layers[i] = ANN.sigmoid(inputs);
+			Matrix inputs = weights[i-1].multiply(nodes[i-1]);
+			nodes[i] = ANN.sigmoid(inputs);
 		}
 		
-		return layers[layers.length-1];
+		return nodes[nodes.length-1];
 	}
 
 	/**
@@ -62,7 +67,21 @@ public class Annone extends ANN
 	@Override
 	public void backpropagate(Matrix data, Matrix result)
 	{
+		Matrix[] deltaw = new Matrix[weights.length];
+		Matrix output = forward(data);
 		
+		//Calculate delta weights for each layer
+		for(int i=weights.length-1; i>0; i--)
+		{
+			deltaw[i] = new Matrix(1, weights[i].getHeight());
+			Matrix err = result.subtract(output); 
+			Matrix ones = new Matrix(1D, 1, err.getHeight());
+			
+			Matrix tmpsub = ones.subtract(nodes[i]);
+			Matrix tmpmul1 = nodes[i].multiply(tmpsub);
+			Matrix tmpmul2 = tmpmul1.multiply(nodes[i-1]);
+			deltaw[i] = tmpmul2.multiply(learningrate);
+		}
 	}
 	
 	/**

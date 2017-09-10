@@ -42,7 +42,7 @@ public class Interface_2
 								 'g','h','i','j','k','l','m',
 								 'n','o','p','q','r','s','t',
 								 'u','v','w','x','y','z'};
-	float ja = 0.9f, nein = 0.001f;
+	double ja = 0.9, nein = 0.001;
 	boolean leer;
 	FreihandZeichnen panel;
 	Annone ann;
@@ -172,7 +172,7 @@ public class Interface_2
 					
 				}catch(Exception ee)
 				{
-					
+					ee.printStackTrace();
 					
 				}
 			}
