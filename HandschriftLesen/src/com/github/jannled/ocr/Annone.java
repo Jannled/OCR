@@ -1,7 +1,5 @@
 package com.github.jannled.ocr;
 
-import java.beans.FeatureDescriptor;
-
 import com.github.jannled.lib.math.Maths;
 import com.github.jannled.lib.math.Matrix;
 
@@ -69,18 +67,28 @@ public class Annone extends ANN
 	{
 		Matrix[] deltaw = new Matrix[weights.length];
 		Matrix output = forward(data);
+		Matrix ones = null;
+		Matrix err = null;
 		
 		//Calculate delta weights for each layer
-		for(int i=weights.length-1; i>0; i--)
+		for(int layer=weights.length-1; layer>-1; layer--)
 		{
-			deltaw[i] = new Matrix(1, weights[i].getHeight());
-			Matrix err = result.subtract(output); 
-			Matrix ones = new Matrix(1D, 1, err.getHeight());
+			//Initialize variables for this layer
+			deltaw[layer] = new Matrix(1, weights[layer].getHeight());
+			ones = new Matrix(1D, 1, deltaw[layer].getHeight());
 			
-			Matrix tmpsub = ones.subtract(nodes[i]);
-			Matrix tmpmul1 = nodes[i].multiply(tmpsub);
-			Matrix tmpmul2 = tmpmul1.multiply(nodes[i-1]);
-			deltaw[i] = tmpmul2.multiply(learningrate);
+			if(layer==weights.length-1)
+			{
+				err = result.subtract(output);
+				//deltaw[layer] = (err.multiply(output).multiply(ones.subtract(output))).multiply(nodes[layer].transpose());
+				deltaw[layer] = err.multiply(output);
+				deltaw[layer] = deltaw[layer].multiply(ones.subtract(output));
+				deltaw[layer] = deltaw[layer].multiply(nodes[layer].transpose());
+			}
+			else
+			{
+				err = weights[layer].transpose().multiply(err);
+			}
 		}
 	}
 	
