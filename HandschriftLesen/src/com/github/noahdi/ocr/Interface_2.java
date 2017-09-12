@@ -20,7 +20,7 @@ import javax.swing.SwingConstants;
 import com.github.jannled.lib.Print;
 import com.github.jannled.lib.math.Matrix;
 import com.github.jannled.ocr.Annone;
-
+import java.awt.Graphics;
 
 
 
@@ -47,6 +47,8 @@ public class Interface_2
 	FreihandZeichnen panel;
 	Annone ann;
 	private JTextField letter;
+	ComputerZeichnen disp;
+	Graphics graph;
 	/**
 	 * Very very important!!!!
 	 */
@@ -93,7 +95,7 @@ public class Interface_2
 		feldF 	= 	new int[hoehe][breite];
 		feld 	= 	new double[(hoehe*breite)];
 		ann 	= 	new Annone((hoehe*breite), (hoehe+breite), alphabet.length, 0.3f);
-		
+		//graph = new Graphics();
 		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(SystemColor.scrollbar);
@@ -213,7 +215,15 @@ public class Interface_2
 		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblNewLabel_1.setBounds(100, 617, 560, 39);
 		frame.getContentPane().add(lblNewLabel_1);
+		
+		disp = new ComputerZeichnen();
+		disp.setVisible(true);
+		disp.addNotify();
+		disp.repaint();
+		frame.getContentPane().add(disp);
+		
 		reset();
+		
 	}
 	public void lernen()
 	{
@@ -255,6 +265,7 @@ public class Interface_2
 				}
 			}
 		}
+		
 	}
 	
 	public void zeigen()
