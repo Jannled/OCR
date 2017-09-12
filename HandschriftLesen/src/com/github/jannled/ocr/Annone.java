@@ -74,20 +74,20 @@ public class Annone extends ANN
 		for(int layer=weights.length-1; layer>-1; layer--)
 		{
 			//Initialize variables for this layer
-			deltaw[layer] = new Matrix(1, weights[layer].getHeight());
-			ones = new Matrix(1D, 1, deltaw[layer].getHeight());
+			deltaw[layer] = new Matrix(nodes[layer].getHeight(), nodes[layer+1].getHeight());
+			double[] k = new double[deltaw[layer].getHeight()];
 			
+			//Calculate error values
 			if(layer==weights.length-1)
-			{
 				err = result.subtract(output);
-				//deltaw[layer] = (err.multiply(output).multiply(ones.subtract(output))).multiply(nodes[layer].transpose());
-				deltaw[layer] = err.multiply(output);
-				deltaw[layer] = deltaw[layer].multiply(ones.subtract(output));
-				deltaw[layer] = deltaw[layer].multiply(nodes[layer].transpose());
-			}
 			else
-			{
 				err = weights[layer].transpose().multiply(err);
+			
+			//For each node
+			for(int node=0; node<err.getValues().length; node++)
+			{
+				final double ok = nodes[layer].getValues()[node];
+				k[node] = err.getValues()[node] * ok * (1 - ok);
 			}
 		}
 	}
