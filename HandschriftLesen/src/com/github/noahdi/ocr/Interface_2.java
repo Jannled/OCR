@@ -36,12 +36,14 @@ public class Interface_2
 	int feldI[][];
 	int feldF[][];
 	double[] feld;
-	double[] alpha = new double[26];
 	/** All chars the ANN can learn, currently 26 */
 	char alphabet[] = new char[]{'a','b','c','d','e','f',
 								 'g','h','i','j','k','l','m',
 								 'n','o','p','q','r','s','t',
-								 'u','v','w','x','y','z'};
+								 'u','v','w','x','y','z',
+								 '0','1','2','3','4','5',
+								 '6','7','8','9'};
+	double[] alpha = new double[alphabet.length];
 	double ja = 0.9, nein = 0.001;
 	boolean leer;
 	FreihandZeichnen panel;
@@ -53,7 +55,7 @@ public class Interface_2
 	 * Very very important!!!!
 	 */
 	
-	/* +++important!!!!+++ +++important!!!!+++ +++important!!!!+++*/	int breite = 20, hoehe = 20;	/* +++important!!!!+++ +++important!!!!+++ +++important!!!!+++*/
+	/* +++important!!!!+++ +++important!!!!+++ +++important!!!!+++*/	int breite = 28, hoehe = 28;	/* +++important!!!!+++ +++important!!!!+++ +++important!!!!+++*/
 	int breitE =250, hoehE = 300;
 				
 	/**
@@ -194,7 +196,18 @@ public class Interface_2
 		know.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				Print.m("Die Ergebnisse: \n" + ann.forward(new Matrix(feld, 1, feld.length)).toString());
+				//Entscheide welcher Buchstabe am wahrscheinlichsten ist.
+				int highpos = 0;
+				Matrix result = ann.forward(new Matrix(feld, 1, feld.length));
+				for(int i=0; i<result.getHeight(); i++)
+				{
+					if(result.getValues()[i] > result.getValues()[highpos])
+					{
+						highpos = i;
+					}
+				}
+				Print.m("Die Ergebnisse: " + result.transpose().toString() + 
+						"Am wahrscheinlichsten: " + alphabet[highpos] + " mit " + result.getValues()[highpos]);
 			}
 		});
 		know.setBounds(410, 521, 250, 84);
@@ -231,17 +244,13 @@ public class Interface_2
 		
 		tf = letter.getText().toLowerCase();
 		
-		
-		
-		for(int w=0;w<26;w++)
+		for(int w=0; w<alpha.length; w++)
 		{
 			if(tf.equals("" + alphabet[w]))
 			{
 				alpha[w]=ja;
-				
 			}
 		}
-		
 		
 		ann.backpropagate(new Matrix(feld, 1, feld.length),new Matrix(alpha, 1, alpha.length));
 		Print.m("Weights updatet with training sample.");
