@@ -95,7 +95,7 @@ public class Annone extends ANN
 		
 		for(int l=0; l<weights.length; l++)
 		{
-			weights[l].multiply(deltaw[l]);
+			weights[l] = weights[l].add(deltaw[l]);
 		}
 	}
 	

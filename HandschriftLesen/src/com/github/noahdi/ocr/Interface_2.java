@@ -53,7 +53,7 @@ public class Interface_2
 	 * Very very important!!!!
 	 */
 	
-				/* +++important!!!!+++ +++important!!!!+++ +++important!!!!+++*/	int breite =5, hoehe = 6;	/* +++important!!!!+++ +++important!!!!+++ +++important!!!!+++*/
+	/* +++important!!!!+++ +++important!!!!+++ +++important!!!!+++*/	int breite = 20, hoehe = 20;	/* +++important!!!!+++ +++important!!!!+++ +++important!!!!+++*/
 	int breitE =250, hoehE = 300;
 				
 	/**
