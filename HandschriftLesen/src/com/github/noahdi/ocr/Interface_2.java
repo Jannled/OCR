@@ -94,7 +94,7 @@ public class Interface_2
 		feldI	=	new int[hoehe][breite];
 		feldF 	= 	new int[hoehe][breite];
 		feld 	= 	new double[(hoehe*breite)];
-		ann 	= 	new Annone((hoehe*breite), (hoehe+breite), alphabet.length, 0.3f);
+		ann 	= 	new Annone((hoehe*breite), hoehe*breite, alphabet.length, 0.3f);
 		//graph = new Graphics();
 		
 		frame = new JFrame();
@@ -244,6 +244,7 @@ public class Interface_2
 		
 		
 		ann.backpropagate(new Matrix(feld, 1, feld.length),new Matrix(alpha, 1, alpha.length));
+		Print.m("Weights updatet with training sample.");
 	}
 	
 	public void holen()

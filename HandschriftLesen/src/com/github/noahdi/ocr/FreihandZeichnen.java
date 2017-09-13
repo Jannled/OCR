@@ -97,8 +97,11 @@ public class FreihandZeichnen extends JPanel implements MouseListener, MouseMoti
     		x =(int) x/(breitE/breite);
     		y =(int) y/(hoehE/hoehe);
     	
-    		counter[y][x]++;
-    		Print.d(x+", " +y  +", "+counter[y][x]);
+    		if(y < counter.length && x < counter[0].length)
+    		{
+    			counter[y][x]++;
+    			Print.d(x+", " +y  +", "+counter[y][x]);
+    		}
  
     }
     public void back()

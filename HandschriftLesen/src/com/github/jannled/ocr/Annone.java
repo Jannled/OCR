@@ -67,7 +67,6 @@ public class Annone extends ANN
 	{
 		Matrix[] deltaw = new Matrix[weights.length];
 		Matrix output = forward(data);
-		Matrix ones = null;
 		Matrix err = null;
 		
 		//Calculate delta weights for each layer
@@ -75,20 +74,23 @@ public class Annone extends ANN
 		{
 			//Initialize variables for this layer
 			deltaw[layer] = new Matrix(nodes[layer].getHeight(), nodes[layer+1].getHeight());
-			double[] k = new double[deltaw[layer].getHeight()];
+			Matrix leftlayer = new Matrix(1, deltaw[layer].getHeight());
 			
 			//Calculate error values
 			if(layer==weights.length-1)
 				err = result.subtract(output);
 			else
-				err = weights[layer].transpose().multiply(err);
+				err = weights[layer+1].transpose().multiply(err);
 			
-			//For each node
+			//Calculate left side of the equation, node by node
 			for(int node=0; node<err.getValues().length; node++)
 			{
-				final double ok = nodes[layer].getValues()[node];
-				k[node] = err.getValues()[node] * ok * (1 - ok);
+				final double ok = nodes[layer+1].getValues()[node];
+				leftlayer.set(node, err.getValues()[node] * ok * (1 - ok));
 			}
+			
+			//Multiply with the right side of the equation
+			deltaw[layer] = leftlayer.multiply(nodes[layer].transpose()).multiply(learningrate);
 		}
 	}
 	
