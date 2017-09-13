@@ -92,6 +92,11 @@ public class Annone extends ANN
 			//Multiply with the right side of the equation
 			deltaw[layer] = leftlayer.multiply(nodes[layer].transpose()).multiply(learningrate);
 		}
+		
+		for(int l=0; l<weights.length; l++)
+		{
+			weights[l].multiply(deltaw[l]);
+		}
 	}
 	
 	/**
