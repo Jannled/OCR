@@ -20,6 +20,8 @@ import javax.swing.SwingConstants;
 import com.github.jannled.lib.Print;
 import com.github.jannled.lib.math.Matrix;
 import com.github.jannled.ocr.Annone;
+import com.github.jannled.ocr.WeightDebugger;
+
 import java.awt.Graphics;
 
 
@@ -48,6 +50,7 @@ public class Interface_2
 	boolean leer;
 	FreihandZeichnen panel;
 	Annone ann;
+	WeightDebugger wd;
 	private JTextField letter;
 	ComputerZeichnen disp;
 	Graphics graph;
@@ -81,6 +84,7 @@ public class Interface_2
 	public Interface_2() {
    
 		initialize();
+		wd = new WeightDebugger(ann.getWeights());
 	}
 
 	/**
