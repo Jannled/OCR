@@ -19,9 +19,6 @@ public class ComputerZeichnen extends JPanel
     protected void paintComponent (Graphics g)
     {
         this.zeichnen();
-        //g.setColor(Color.BLACK);
-        //g.fillRect(0, 0, 10, 10);
-        //g.fillRect(10, 0, 10, 10);
 
         repaint();
         

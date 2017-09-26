@@ -26,6 +26,8 @@ import com.github.jannled.ocr.Annone;
 
 public class Interface_2 
 {
+	public static Interface_2 intf;
+	
 	/**
 	 * attributes
 	 */
@@ -49,7 +51,6 @@ public class Interface_2
 	FreihandZeichnen panel;
 	Annone ann;
 	private JTextField letter;
-	ComputerZeichnen disp;
 	Graphics graph;
 	/**
 	 * Very very important!!!!
@@ -78,8 +79,9 @@ public class Interface_2
 	/**
 	 * Create the application.
 	 */
-	public Interface_2() {
-   
+	public Interface_2() 
+	{
+		intf = this;
 		initialize();
 	}
 
@@ -208,6 +210,7 @@ public class Interface_2
 				}
 				Print.m("Die Ergebnisse: " + result.transpose().toString() + 
 						"Am wahrscheinlichsten: " + alphabet[highpos] + " mit " + result.getValues()[highpos]);
+				reset();
 			}
 		});
 		know.setBounds(410, 521, 250, 84);
@@ -228,12 +231,6 @@ public class Interface_2
 		lblNewLabel_1.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblNewLabel_1.setBounds(100, 617, 560, 39);
 		frame.getContentPane().add(lblNewLabel_1);
-		
-		disp = new ComputerZeichnen();
-		disp.setVisible(true);
-		disp.addNotify();
-		disp.repaint();
-		frame.getContentPane().add(disp);
 		
 		reset();
 		

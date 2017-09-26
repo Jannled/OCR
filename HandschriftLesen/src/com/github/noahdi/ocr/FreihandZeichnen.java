@@ -74,6 +74,9 @@ public class FreihandZeichnen extends JPanel implements MouseListener, MouseMoti
     } 
 
     public void mouseReleased(MouseEvent e) { 
+    	
+    	Interface_2.intf.holen();
+    	Interface_2.intf.zeigen();
     }
     
     public void mouseMoved(MouseEvent e) { 
