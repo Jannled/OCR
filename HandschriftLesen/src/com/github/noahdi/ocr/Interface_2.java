@@ -21,6 +21,7 @@ import javax.swing.SwingConstants;
 import com.github.jannled.lib.Print;
 import com.github.jannled.lib.math.Matrix;
 import com.github.jannled.ocr.Annone;
+import com.github.jannled.ocr.WeightMonitor;
 
 
 
@@ -52,6 +53,8 @@ public class Interface_2
 	Annone ann;
 	private JTextField letter;
 	Graphics graph;
+	String s = "Erkannter Buchstabe: ";
+	JLabel lblNewLabel = new JLabel(s);
 	/**
 	 * Very very important!!!!
 	 */
@@ -69,6 +72,17 @@ public class Interface_2
 				try {
 					Interface_2 window = new Interface_2();
 					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					WeightMonitor wm = new WeightMonitor();
+					wm.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -124,26 +138,6 @@ public class Interface_2
 		{
 			alpha[i]=nein;
 		}
-
-		
-		JButton getter = new JButton("Holen");
-		getter.setBackground(new Color(0, 100, 0));
-		getter.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
-		getter.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				try{
-					holen();
-					zeigen();
-					
-				}catch(Exception ee)
-				{
-					
-				}
-			}
-		});
-		getter.setBounds(410, 100, 250, 145);
-		frame.getContentPane().add(getter);
 		
 		panel.setBackground(new Color(51, 102, 102));
 		panel.setBounds(100, 100, 250, 300);
@@ -163,7 +157,7 @@ public class Interface_2
 				}
 			}
 		});
-		reset.setBounds(410, 255, 250, 145);
+		reset.setBounds(700, 460, 250, 145);
 		frame.getContentPane().add(reset);
 		
 		
@@ -192,7 +186,6 @@ public class Interface_2
 		letter.setBounds(100, 460, 250, 50);
 		frame.getContentPane().add(letter);
 		letter.setColumns(10);
-		
 		JButton know = new JButton("Erkennen");
 		know.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
 		know.addActionListener(new ActionListener() {
@@ -210,13 +203,14 @@ public class Interface_2
 				}
 				Print.m("Die Ergebnisse: " + result.transpose().toString() + 
 						"Am wahrscheinlichsten: " + alphabet[highpos] + " mit " + result.getValues()[highpos]);
+				lblNewLabel.setText(s+ alphabet[highpos]);
 				reset();
 			}
 		});
 		know.setBounds(410, 521, 250, 84);
 		frame.getContentPane().add(know);
 		
-		JLabel lblNewLabel = new JLabel("Erkannter Buchstabe:");
+		
 		lblNewLabel.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(410, 460, 250, 50);

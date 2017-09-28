@@ -77,6 +77,7 @@ public class FreihandZeichnen extends JPanel implements MouseListener, MouseMoti
     	
     	Interface_2.intf.holen();
     	Interface_2.intf.zeigen();
+    	Interface_2.intf.lblNewLabel.setText("Erkannter Buchstabe: ");
     }
     
     public void mouseMoved(MouseEvent e) { 
