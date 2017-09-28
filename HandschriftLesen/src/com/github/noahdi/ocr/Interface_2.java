@@ -28,11 +28,14 @@ import com.github.jannled.ocr.WeightMonitor;
 
 public class Interface_2 
 {
-	public static Interface_2 intf;
+	//public static Interface_2 intf;
 	
 	/**
 	 * attributes
 	 */
+	
+	//TODO testvariable
+	public static Interface_2 testah;
 	
 	private JFrame frame;
 	JLabel zeichen[][];
@@ -68,22 +71,24 @@ public class Interface_2
 	 * Launch the application.
 	 * @param args Command line start arguments.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{	
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Interface_2 window = new Interface_2();
-					window.frame.setVisible(true);
+					testah = new Interface_2();
+					testah.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
 		
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					WeightMonitor wm = new WeightMonitor();
+					WeightMonitor wm = new WeightMonitor(testah);
 					wm.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -97,7 +102,6 @@ public class Interface_2
 	 */
 	public Interface_2() 
 	{
-		intf = this;
 		initialize();
 	}
 
@@ -109,7 +113,7 @@ public class Interface_2
 		/**
 		 * filling the attributes
 		 */
-		disp = new ComputerZeichnen(hoehe, breite, hoehE, breitE);
+		disp 	= new ComputerZeichnen(hoehe, breite, hoehE, breitE, this);
 		zeichen	= 	new JLabel[hoehe][breite];
 		feldB 	=	new boolean[hoehe][breite];
 		feldI	=	new int[hoehe][breite];
@@ -123,8 +127,8 @@ public class Interface_2
 		frame.setBounds(100, 100, 1080, 720);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		panel = new FreihandZeichnen(hoehe, breite);
-		
+		panel = new FreihandZeichnen(hoehe, breite, this);
+		frame.getContentPane().add(disp);
 		for(int q=0;q<hoehe;q++)
 		{
 			for(int w=0;w<breite;w++)
@@ -317,6 +321,7 @@ public class Interface_2
 
 	public int getF(int a,int b)
 	{
+		
 		if(feldI[a][b]<255)
 		{
 			return feldI[a][b];
