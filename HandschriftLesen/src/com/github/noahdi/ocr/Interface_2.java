@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 
 import com.github.jannled.lib.Print;
 import com.github.jannled.lib.math.Matrix;
+import com.github.jannled.ocr.ANN;
 import com.github.jannled.ocr.Annone;
 import com.github.jannled.ocr.WeightMonitor;
 
@@ -55,6 +56,7 @@ public class Interface_2
 	Graphics graph;
 	String s = "Erkannter Buchstabe: ";
 	JLabel lblNewLabel = new JLabel(s);
+	ComputerZeichnen disp;
 	/**
 	 * Very very important!!!!
 	 */
@@ -107,6 +109,7 @@ public class Interface_2
 		/**
 		 * filling the attributes
 		 */
+		disp = new ComputerZeichnen(hoehe, breite, hoehE, breitE);
 		zeichen	= 	new JLabel[hoehe][breite];
 		feldB 	=	new boolean[hoehe][breite];
 		feldI	=	new int[hoehe][breite];
@@ -322,7 +325,10 @@ public class Interface_2
 		{
 			return 255;
 		}
-		
-			
+	}
+	
+	public ANN getANN()
+	{
+		return ann;
 	}
 }

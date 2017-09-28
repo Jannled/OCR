@@ -7,18 +7,27 @@ import javax.swing.JPanel;
 
 public class ComputerZeichnen extends JPanel
 {
-	
+	int hoehe, breite, hoehE, breitE;
 	//
 	
-	public ComputerZeichnen() {
+	public ComputerZeichnen(int a, int b, int c, int d) {
     	
-		
-    	this.setBounds(720, 100, 100, 100);
+		hoehe = a;
+		breite= b;
+		hoehE = c;
+		breitE= d;
+    	this.setBounds(410, 100, breitE, hoehE);
     }
     @Override
     protected void paintComponent (Graphics g)
     {
-        this.zeichnen();
+        for(int i=0;i<hoehe;i++)
+        {
+        	for(int j=0;j<breite;j++)
+        	{
+        		//g.fillReck()
+        	}
+        }
 
         repaint();
         
