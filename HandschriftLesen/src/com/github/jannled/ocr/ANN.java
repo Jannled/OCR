@@ -8,6 +8,8 @@ import com.github.jannled.lib.math.Matrix;
  */
 public abstract class ANN
 {
+	protected Matrix[] weights;
+	
 	/**
 	 * Let the neuronal network calculate the output.
 	 * @param data The data to be processed.
@@ -54,5 +56,15 @@ public abstract class ANN
 			out += m.getValues()[i];
 		}
 		return out;
+	}
+	
+	
+	/**
+	 * Get the current learn progress.
+	 * @return All weights for the different layers. 
+	 */
+	public Matrix[] getWeights()
+	{
+		return weights;
 	}
 }

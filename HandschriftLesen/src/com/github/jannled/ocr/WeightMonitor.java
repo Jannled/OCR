@@ -1,10 +1,10 @@
 package com.github.jannled.ocr;
 
-import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Graphics;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 public class WeightMonitor extends JFrame 
 {
@@ -15,13 +15,30 @@ public class WeightMonitor extends JFrame
 	/**
 	 * Create the frame.
 	 */
-	public WeightMonitor() 
+	public WeightMonitor(ANN ann) 
 	{	
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
+		contentPane = new WeightPanel(ann);
 		setContentPane(contentPane);
+	}
+	
+}
+
+class WeightPanel extends JPanel
+{
+	private static final long serialVersionUID = 1887140080210736456L;
+	private ANN ann;
+	
+	public WeightPanel(ANN ann) 
+	{
+		this.ann = ann;
+	}
+	
+	@Override
+	protected void paintComponent(Graphics g)
+	{
+		g.setColor(Color.GREEN);
+		g.drawString(ann.getWeights()[0].toString(), 10, 10);
 	}
 }

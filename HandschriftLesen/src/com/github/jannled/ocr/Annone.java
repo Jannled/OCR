@@ -12,7 +12,6 @@ public class Annone extends ANN
 {
 	final protected int inputNodes, middleNodes, outputNodes;
 	final protected int[] layers;
-	protected Matrix[] weights;
 	protected Matrix[] nodes;
 	protected float learningrate;
 	
@@ -116,15 +115,6 @@ public class Annone extends ANN
 		}
 		
 		return out;
-	}
-	
-	/**
-	 * Get the current learn progress.
-	 * @return All weights for the different layers. 
-	 */
-	public Matrix[] getWeights()
-	{
-		return weights;
 	}
 	
 	/**
