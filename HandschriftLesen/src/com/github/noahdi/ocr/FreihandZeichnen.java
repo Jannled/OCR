@@ -25,10 +25,9 @@ public class FreihandZeichnen extends JPanel implements MouseListener, MouseMoti
     private int startX, startY, tempX, tempY; 
     private Graphics2D g2; 
     int f=0;
-    Interface_2 intf;
 
     
-    public FreihandZeichnen(int h, int b, Interface_2 buhu)
+    public FreihandZeichnen(int h, int b)
     {
     	Print.m("Freihandzeichnen aufgerufen...");
         this.addMouseListener(this); 
@@ -37,7 +36,6 @@ public class FreihandZeichnen extends JPanel implements MouseListener, MouseMoti
         hoehe= h;
         feldB =new boolean[breite*hoehe];
         counter = new int[hoehe][breite];
-        this.intf = buhu;
     }
     
     public FreihandZeichnen() { 
@@ -60,7 +58,7 @@ public class FreihandZeichnen extends JPanel implements MouseListener, MouseMoti
 
     public static void main(String[] args) { 
         JFrame frame = new JFrame(); 
-        //frame.add(new FreihandZeichnen(hoehe, breite)); 
+        frame.add(new FreihandZeichnen(hoehe, breite)); 
  
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         frame.setVisible(true); 
@@ -77,9 +75,9 @@ public class FreihandZeichnen extends JPanel implements MouseListener, MouseMoti
 
     public void mouseReleased(MouseEvent e) { 
     	
-    	intf.holen();
-    	intf.zeigen();
-    	intf.lblNewLabel.setText("Erkannter Buchstabe: ");
+    	Interface_2.intf.holen();
+    	Interface_2.intf.zeigen();
+    	Interface_2.intf.lblNewLabel.setText("Erkannter Buchstabe: ");
     }
     
     public void mouseMoved(MouseEvent e) { 

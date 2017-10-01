@@ -13,12 +13,11 @@ public class WeightMonitor extends JFrame
 	/**
 	 * Create the frame.
 	 */
-	public WeightMonitor(Interface_2 buhu)
+	public WeightMonitor()
 	{	
-		
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
-		contentPane = new WeightPanel(buhu.getANN());
+		contentPane = new WeightPanel(Interface_2.intf.getANN());
 		setContentPane(contentPane);
 	}
 }
