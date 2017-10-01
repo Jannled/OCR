@@ -97,6 +97,7 @@ public class Interface_2
 	 */
 	public Interface_2() 
 	{
+		Print.setOutputLevel(Print.ALL);
 		intf = this;
 		initialize();
 	}
@@ -247,6 +248,10 @@ public class Interface_2
 		}
 		
 		ann.backpropagate(new Matrix(feld, 1, feld.length),new Matrix(alpha, 1, alpha.length));
+		for(int i=0; i<ann.getWeights().length; i++)
+		{
+			Print.d(ann.getWeights()[i].toString());
+		}
 		Print.m("Weights updatet with training sample.");
 	}
 	
@@ -282,7 +287,7 @@ public class Interface_2
 			for(int j=0; j<breite; j++)
 			{
 				Print.d(" "+feld[i*breite+j]);
-				//
+				
 				if(feldB[i][j]==true)
 				{
 					temp = new Color(0,(255-getF(i,j)),0);

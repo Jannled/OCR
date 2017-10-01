@@ -8,7 +8,7 @@ import com.github.jannled.lib.math.Matrix;
  */
 public abstract class ANN
 {
-	protected Matrix[] weights;
+	volatile Matrix[] weights;
 	
 	/**
 	 * Let the neuronal network calculate the output.
@@ -63,7 +63,7 @@ public abstract class ANN
 	 * Get the current learn progress.
 	 * @return All weights for the different layers. 
 	 */
-	public Matrix[] getWeights()
+	public synchronized Matrix[] getWeights()
 	{
 		return weights;
 	}
