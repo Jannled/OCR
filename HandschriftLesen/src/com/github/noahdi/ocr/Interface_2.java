@@ -34,7 +34,10 @@ public class Interface_2
 	 * attributes
 	 */
 	
+	//Frames
 	private JFrame frame;
+	public static WeightMonitor wm;
+	
 	JLabel zeichen[][];
 	boolean feldB[][];
 	int feldI[][];
@@ -83,7 +86,7 @@ public class Interface_2
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					WeightMonitor wm = new WeightMonitor();
+					wm = new WeightMonitor();
 					wm.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

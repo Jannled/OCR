@@ -2,6 +2,7 @@ package com.github.jannled.ocr;
 
 import com.github.jannled.lib.math.Maths;
 import com.github.jannled.lib.math.Matrix;
+import com.github.noahdi.ocr.Interface_2;
 
 /**
  * The first version of an artificial neuronal network containing one deep layer.
@@ -96,6 +97,8 @@ public class Annone extends ANN
 		{
 			weights[l] = weights[l].add(deltaw[l]);
 		}
+		
+		Interface_2.wm.update(true);
 	}
 	
 	/**
