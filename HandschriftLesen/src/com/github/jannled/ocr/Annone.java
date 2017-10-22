@@ -98,7 +98,7 @@ public class Annone extends ANN
 			weights[l] = weights[l].add(deltaw[l]);
 		}
 		
-		Interface_2.wm.update(true);
+		Interface_2.wm.updateData(true);
 	}
 	
 	/**

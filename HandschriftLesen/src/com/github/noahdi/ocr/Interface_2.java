@@ -22,7 +22,7 @@ import com.github.jannled.lib.Print;
 import com.github.jannled.lib.math.Matrix;
 import com.github.jannled.ocr.ANN;
 import com.github.jannled.ocr.Annone;
-import com.github.jannled.ocr.WeightMonitor;
+import com.github.jannled.ocr.Debugger;
 
 
 
@@ -36,7 +36,7 @@ public class Interface_2
 	
 	//Frames
 	private JFrame frame;
-	public static WeightMonitor wm;
+	public static Debugger wm;
 	
 	JLabel zeichen[][];
 	boolean feldB[][];
@@ -86,7 +86,7 @@ public class Interface_2
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					wm = new WeightMonitor();
+					wm = new Debugger();
 					wm.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
