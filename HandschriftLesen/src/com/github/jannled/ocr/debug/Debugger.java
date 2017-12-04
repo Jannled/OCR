@@ -1,15 +1,12 @@
-package com.github.jannled.ocr;
+package com.github.jannled.ocr.debug;
 
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
-
-import com.github.noahdi.ocr.Interface_2;
 
 public class Debugger extends JFrame
 {
 	private static final long serialVersionUID = -7578507167226329829L;
 	
-	private ANN ann;
 	private JTabbedPane modes;
 	
 	//Weight Monitor
@@ -23,7 +20,6 @@ public class Debugger extends JFrame
 	 */
 	public Debugger()
 	{	
-		this.ann = Interface_2.intf.getANN();
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		
@@ -40,5 +36,6 @@ public class Debugger extends JFrame
 	public void updateData(boolean recalculateDeltas)
 	{
 		pnlWeightMonitor.update(recalculateDeltas);
+		pnlActivationMonitor.update(recalculateDeltas);
 	}
 }

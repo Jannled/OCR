@@ -22,7 +22,7 @@ import com.github.jannled.lib.Print;
 import com.github.jannled.lib.math.Matrix;
 import com.github.jannled.ocr.ANN;
 import com.github.jannled.ocr.Annone;
-import com.github.jannled.ocr.Debugger;
+import com.github.jannled.ocr.debug.Debugger;
 
 
 

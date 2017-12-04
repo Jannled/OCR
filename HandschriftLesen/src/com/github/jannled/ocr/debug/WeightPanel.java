@@ -1,32 +1,21 @@
-package com.github.jannled.ocr;
-
-import java.awt.BorderLayout;
+package com.github.jannled.ocr.debug;
 
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
-import javax.swing.JTable;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import com.github.jannled.lib.Print;
 import com.github.jannled.lib.math.Matrix;
-import com.github.noahdi.ocr.Interface_2;
 
 /**
  * 
  * @author Jannled
  * Note: Might only work for a three layer ANN
  */
-public class WeightPanel extends JPanel implements ChangeListener
+public class WeightPanel extends DebugPanel
 {
 	private static final long serialVersionUID = 1887140080210736456L;
-	private ANN ann;
-	private JTable table;
-	private WeightTableModel tableValues;
 	
 	//Weight Monitor
 	private JSpinner spnLayers;
@@ -35,12 +24,7 @@ public class WeightPanel extends JPanel implements ChangeListener
 	
 	public WeightPanel()
 	{
-		this.ann = Interface_2.intf.getANN();
-		
-		setLayout(new BorderLayout(0, 0));
-		
-		JPanel pnlSelecter = new JPanel();
-		add(pnlSelecter, BorderLayout.NORTH);
+		super(new String[] {"Node", "Weight", "Last Delta"});
 		
 		JLabel lblLayers = new JLabel("Layers");
 		pnlSelecter.add(lblLayers);
@@ -50,8 +34,8 @@ public class WeightPanel extends JPanel implements ChangeListener
 		spnLayers.addChangeListener(this);
 		pnlSelecter.add(spnLayers);
 		
-		JLabel lblNewLabel = new JLabel("Left Node");
-		pnlSelecter.add(lblNewLabel);
+		JLabel lblNodes = new JLabel("Left Node");
+		pnlSelecter.add(lblNodes);
 		
 		spnNodes = new JSpinner();
 		spnNodes.setModel(new SpinnerNumberModel(0, 0, ann.getWeights()[0].getHeight(), 1));
@@ -59,15 +43,6 @@ public class WeightPanel extends JPanel implements ChangeListener
 		pnlSelecter.add(spnNodes);
 		
 		weightdeltaref = ann.getWeights().clone();
-		
-		// -->      <--
-		tableValues = new WeightTableModel(new String[] {"Node", "Weight", "Last Delta"});
-		
-		table = new JTable(tableValues);
-		add(table, BorderLayout.CENTER);
-		
-		JScrollPane scroll = new JScrollPane(table, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		add(scroll);
 		
 		update(true);
 	}
@@ -109,19 +84,19 @@ public class WeightPanel extends JPanel implements ChangeListener
 			nodeDescriptors[i] = "Layer " + layer + "; W " + leftNode + "," + i;
 		}
 		
-		tableValues.setValues(nodeDescriptors, weights, deltas);
+		tableValues.setValues(nodeDescriptors, new double[][] {weights, deltas});
 		table.revalidate();
 		table.repaint();
 	}
 	
 	@Override
 	public void stateChanged(ChangeEvent e)
-	{
-		update(false);
-		
+	{	
 		if(e.getSource() != spnNodes)
 		{
 			spnNodes.setModel(new SpinnerNumberModel(0, 0, ann.getWeights()[((Integer) spnLayers.getModel().getValue()).intValue()].getWidth(), 1));
 		}
+		
+		super.stateChanged(e);
 	}
 }

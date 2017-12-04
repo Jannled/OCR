@@ -1,4 +1,4 @@
-package com.github.jannled.ocr;
+package com.github.jannled.ocr.debug;
 
 import java.text.DecimalFormat;
 
@@ -8,28 +8,27 @@ public class WeightTableModel extends AbstractTableModel
 {
 	private static final long serialVersionUID = 694391558532565770L;
 	
-	private double[] weights;
+	private double[][] values;
 	private String[] descriptors;
-	private double[] deltas;
 	private String[] columNames;
 	
 	public WeightTableModel(String[] columnNames)
 	{
 		this.columNames = columnNames;
-		weights = new double[] {0};
+		values = new double[columnNames.length][1];
 		descriptors = new String[] {"- empty -"};
 	}
 	
 	@Override
 	public int getRowCount()
 	{
-		return weights.length;
+		return values[0].length;
 	}
 
 	@Override
 	public int getColumnCount()
 	{
-		return 3;
+		return values.length;
 	}
 
 	@Override
@@ -42,13 +41,9 @@ public class WeightTableModel extends AbstractTableModel
 		{
 			return descriptors[rowIndex];
 		}
-		else if(columnIndex == 1 && rowIndex < weights.length)
+		else if(columnIndex > 0 && columnIndex-1 < values.length && rowIndex < values[columnIndex-1].length)
 		{
-			return df.format(weights[rowIndex]);
-		}
-		else if(columnIndex == 2 && rowIndex < deltas.length)
-		{
-			return df.format(deltas[rowIndex]);
+			return df.format(values[columnIndex-1][rowIndex]);
 		}
 		return null;
 	}
@@ -63,10 +58,9 @@ public class WeightTableModel extends AbstractTableModel
 		return columNames[column];
 	}
 	
-	public void setValues(String[] descriptors, double[] weights, double[] deltas)
+	public void setValues(String[] descriptors, double[][] values)
 	{
 		this.descriptors = descriptors;
-		this.weights = weights;
-		this.deltas = deltas;
+		this.values = values;
 	}
 }

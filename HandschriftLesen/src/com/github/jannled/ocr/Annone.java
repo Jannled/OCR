@@ -36,6 +36,12 @@ public class Annone extends ANN
 		{
 			weights[i] = new Matrix(generateWeights(layers[i], layers[i+1]), layers[i], layers[i+1]);
 		}
+		
+		nodes = new Matrix[3];
+		for(int i=0; i<3; i++)
+		{
+			nodes[i] = new Matrix(1, layers[i]);
+		}
 	}
 
 	/**
@@ -45,6 +51,7 @@ public class Annone extends ANN
 	@Override
 	public Matrix forward(Matrix data)
 	{
+		//TODO remove hardcode
 		nodes = new Matrix[3];
 		nodes[0] = data;
 		
@@ -118,6 +125,11 @@ public class Annone extends ANN
 		}
 		
 		return out;
+	}
+	
+	public Matrix[] getNodes()
+	{
+		return nodes;
 	}
 	
 	/**
